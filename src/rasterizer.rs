@@ -1,7 +1,8 @@
-use glam::*;
+use glam::{Vec2};
+use std::ops::{Mul, Add};
 
 #[derive(Debug)]
-pub struct Triangle
+pub struct Vertex
 {
    pub a: Vec2,
    pub b: Vec2,
@@ -16,24 +17,26 @@ fn is_on_side(a: Vec2, b: Vec2, p: Vec2) -> bool {
     dot <= 0.0 
 }
 
-impl Triangle {
-    pub fn is_inside(&self, p: Vec2) -> bool {
-        let ab = is_on_side(self.a, self.b, p);
-        let bc = is_on_side(self.b, self.c, p);
-        let ca = is_on_side(self.c, self.a, p);
+pub fn is_inside(a: Vec2, b: Vec2, c: Vec2, p: Vec2) -> bool {
+    let ab = is_on_side(a, b, p);
+    let bc = is_on_side(b, c, p);
+    let ca = is_on_side(c, a, p);
 
-        ab && bc && ca 
-    }
+    ab && bc && ca 
+}
     
+impl Vertex {
+    pub fn is_inside(&self, p: Vec2 ) -> bool {
+        is_inside(self.a, self.b, self.c, p)
+    }
 }
 
-use std::ops::Mul;
 
-impl Mul<Vec2> for Triangle {
-    type Output = Triangle;
+impl Mul<Vec2> for Vertex {
+    type Output = Vertex;
 
-    fn mul(self, rhs: Vec2) -> Triangle {
-        Triangle {
+    fn mul(self, rhs: Vec2) -> Vertex {
+        Vertex {
             a: self.a * rhs,
             b: self.b * rhs,
             c: self.c * rhs,
@@ -41,12 +44,12 @@ impl Mul<Vec2> for Triangle {
     }
 }
 
-use std::ops::Add;
-impl Add<Vec2> for Triangle {
-    type Output = Triangle;
 
-    fn add(self, rhs: Vec2) -> Triangle {
-        Triangle {
+impl Add<Vec2> for Vertex {
+    type Output = Vertex;
+
+    fn add(self, rhs: Vec2) -> Vertex {
+        Vertex {
             a: self.a + rhs,
             b: self.b + rhs,
             c: self.c + rhs,
@@ -54,15 +57,15 @@ impl Add<Vec2> for Triangle {
     }
 }
 
-pub fn gen_tri(typ: i32) -> Triangle {
+pub fn gen_tri(typ: i32) -> Vertex {
     if typ == 1 {
-        return Triangle {
+        return Vertex {
             a: glam::vec2(320.0, 180.0 - 144.0), // top vertex (center - half height)
             b: glam::vec2(320.0 - 288.0, 180.0 + 144.0), // bottom left (center - half width, + half height)
             c: glam::vec2(320.0 + 288.0, 180.0 + 144.0), // bottom right
         };
     }
-    Triangle {
+    Vertex {
         a: glam::vec2(280.0, 105.0), // top vertex
         b: glam::vec2(240.0, 175.0), // bottom left
         c: glam::vec2(320.0, 175.0), // bottom right

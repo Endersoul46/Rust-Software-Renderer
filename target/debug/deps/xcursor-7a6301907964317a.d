@@ -1,0 +1,8 @@
+/home/es46/Documents/Projects/software_renderer/target/debug/deps/xcursor-7a6301907964317a.d: /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/lib.rs /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/parser.rs
+
+/home/es46/Documents/Projects/software_renderer/target/debug/deps/libxcursor-7a6301907964317a.rlib: /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/lib.rs /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/parser.rs
+
+/home/es46/Documents/Projects/software_renderer/target/debug/deps/libxcursor-7a6301907964317a.rmeta: /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/lib.rs /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/parser.rs
+
+/home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/lib.rs:
+/home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/xcursor-0.3.10/src/parser.rs:

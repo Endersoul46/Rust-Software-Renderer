@@ -1,3 +1,3 @@
-pub use glam::*;
+pub mod model;
 pub mod buffer;
 pub mod rasterizer;

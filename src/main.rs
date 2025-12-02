@@ -1,5 +1,6 @@
 use minifb::{Key, Window, WindowOptions};
 use glam::*;
+use software_renderer::buffer::Buffer;
 use software_renderer::rasterizer;
 use software_renderer::buffer;
 
@@ -9,7 +10,7 @@ const FPS:usize = 60;
 
 fn main() {
     let delta:f32 = 1.0/60.0;
-    let mut buf = buffer::Buffer::new(0.0, WIDTH, HEIGHT);
+    let mut buf = buffer::Buffer::new(WIDTH, HEIGHT);
     let mut window = Window::new(
         "Test - ESC to exit",
         WIDTH,
@@ -25,6 +26,7 @@ fn main() {
     window.set_target_fps(FPS);
     let mut red_buf: Vec<u32>  =  vec![0; WIDTH * HEIGHT];
 
+    let prev_buf: Buffer = buf.clone();
 
    let purp = Vec4::new(0.4, 0.0, 0.6, 1.0);
    let mut t:f32 = 0.0;
@@ -43,7 +45,7 @@ fn main() {
                 } 
             }
         }
-        buf.prep_buffer(&mut red_buf);
+        buf.prep_buffer(&mut red_buf, &prev_buf);
         window.update_with_buffer(&red_buf, WIDTH, HEIGHT).unwrap();
     }
 }
