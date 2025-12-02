@@ -36,15 +36,16 @@ impl Buffer {
     }
 
 
-    pub fn prep_buffer(&self, red_buf: &mut [u32], prev_buf: &Self)  {
-        self.screen.iter().zip(prev_buf.screen.iter()).enumerate().for_each(|(i,(src_col,col))| {
-            let r = (( src_col.x * src_col.w + col.x * (1.0 - src_col.w)) *255.0 ) as u8;
-            let g = (( src_col.y * src_col.w + col.y * (1.0 - src_col.w)) *255.0 ) as u8;
-            let b = (( src_col.z * src_col.w + col.z * (1.0 - src_col.w)) *255.0 ) as u8;
-            red_buf[i] = from_u8_rgb(r, g, b);
-        });
-    }
 
+pub fn prep_buffer(&self, red_buf: &mut [u32], prev_buf: &Self) {
+    self.screen.iter().zip(prev_buf.screen.iter()).enumerate().for_each(|(i,(src_col, col))| {
+        let alpha = src_col.w.clamp(0.0, 1.0);
+        let r = ((src_col.x * alpha + col.x * (1.0 - alpha)) * 255.0).clamp(0.0, 255.0) as u8;
+        let g = ((src_col.y * alpha + col.y * (1.0 - alpha)) * 255.0).clamp(0.0, 255.0) as u8;
+        let b = ((src_col.z * alpha + col.z * (1.0 - alpha)) * 255.0).clamp(0.0, 255.0) as u8;
+        red_buf[i] = from_u8_rgb(r, g, b);
+    });
+}
 } 
 
 

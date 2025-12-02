@@ -11,6 +11,7 @@ const FPS:usize = 60;
 fn main() {
     let delta:f32 = 1.0/60.0;
     let mut buf = buffer::Buffer::new(WIDTH, HEIGHT);
+    buf.screen = vec![Vec4::new(0.0, 0.0, 0.0, 0.0); WIDTH * HEIGHT];
     let mut window = Window::new(
         "Test - ESC to exit",
         WIDTH,
@@ -29,6 +30,7 @@ fn main() {
     let prev_buf: Buffer = buf.clone();
 
    let purp = Vec4::new(0.4, 0.0, 0.6, 1.0);
+   let purp_buf = Buffer {screen: vec![purp; WIDTH * HEIGHT], width: WIDTH, height: HEIGHT};
    let mut t:f32 = 0.0;
     while window.is_open() && !window.is_key_down(Key::Escape) {    
         t += 5.0*delta;
@@ -39,13 +41,13 @@ fn main() {
                 if triangle.is_inside(Vec2::new(x as f32, y as f32)) {
                     let r = (x as f32) / (WIDTH as f32 - 1.0);
                     let g = (y as f32) / (HEIGHT as f32 - 1.0);
-                    buf.screen[screen_pos] =  Vec4::new(r,g,0.0,1.0);
+                    buf.screen[screen_pos] =  Vec4::new(r,g,0.0,0.5);
                 }else{
                     buf.screen[screen_pos] = purp;
                 } 
             }
         }
-        buf.prep_buffer(&mut red_buf, &prev_buf);
+        buf.prep_buffer(&mut red_buf, &purp_buf);
         window.update_with_buffer(&red_buf, WIDTH, HEIGHT).unwrap();
     }
 }
