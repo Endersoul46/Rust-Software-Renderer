@@ -1,0 +1,1 @@
+/home/es46/Documents/Projects/software_renderer/target/release/libsoftware_renderer.rlib: /home/es46/Documents/Projects/software_renderer/src/buffer.rs /home/es46/Documents/Projects/software_renderer/src/lib.rs /home/es46/Documents/Projects/software_renderer/src/model.rs /home/es46/Documents/Projects/software_renderer/src/rasterizer.rs

@@ -1,4 +1,4 @@
-use glam::{Vec3, Vec4};  
+use glam::{Vec3, Vec4, Vec4Swizzles};  
 
 #[derive(Clone)]
 pub struct Buffer {
@@ -36,14 +36,32 @@ impl Buffer {
     }
 
 
+    pub fn apply_alpha(&mut self){
+        for pixel in &mut self.screen {
+            pixel.x *= pixel.w;
+            pixel.y *= pixel.w;
+            pixel.z *= pixel.w;
+        }
 
-pub fn prep_buffer(&self, red_buf: &mut [u32], prev_buf: &Self) {
-    self.screen.iter().zip(prev_buf.screen.iter()).enumerate().for_each(|(i,(src_col, col))| {
+    }
+
+pub fn prep_buffer(&self, red_buf: &mut [u32], prev_buf: &mut Self) {
+    self.screen.iter().zip(prev_buf.screen.iter_mut()).enumerate().for_each(|(i,(src_col, col))| {
         let alpha = src_col.w.clamp(0.0, 1.0);
-        let r = ((src_col.x * alpha + col.x * (1.0 - alpha)) * 255.0).clamp(0.0, 255.0) as u8;
-        let g = ((src_col.y * alpha + col.y * (1.0 - alpha)) * 255.0).clamp(0.0, 255.0) as u8;
-        let b = ((src_col.z * alpha + col.z * (1.0 - alpha)) * 255.0).clamp(0.0, 255.0) as u8;
-        red_buf[i] = from_u8_rgb(r, g, b);
+        if alpha > 0.0 {
+            let r_b = src_col.x*alpha + col.x * (1.0 - alpha);
+            let g_b = src_col.y*alpha + col.y * (1.0 - alpha);
+            let b_b = src_col.z*alpha + col.z * (1.0 - alpha);
+            let r = (r_b*255.0).clamp(0.0, 255.0) as u8;
+            let g = (g_b*255.0).clamp(0.0, 255.0) as u8;
+            let b = (b_b*255.0).clamp(0.0, 255.0) as u8;
+            red_buf[i] = from_u8_rgb(r, g, b);
+            col.x = r_b;
+            col.y = g_b;
+            col.z = b_b;
+        }else{
+           self.prep_buffer_wo_a(red_buf);
+        }
     });
 }
 } 

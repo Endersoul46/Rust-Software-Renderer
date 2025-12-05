@@ -1,0 +1,7 @@
+/home/es46/Documents/Projects/software_renderer/target/release/deps/scoped_tls-41b9ef8b0a9912b0.d: /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs
+
+/home/es46/Documents/Projects/software_renderer/target/release/deps/libscoped_tls-41b9ef8b0a9912b0.rlib: /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs
+
+/home/es46/Documents/Projects/software_renderer/target/release/deps/libscoped_tls-41b9ef8b0a9912b0.rmeta: /home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs
+
+/home/es46/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs:
